@@ -1,4 +1,5 @@
 #include "Core.h"
+#include "MazeMap.h"
 #include <string.h>
 Core* Core::m_pInst = nullptr;
 Core::Core(){
@@ -32,6 +33,7 @@ bool Core::Init(Player* _player)
 }
 void Core::Run()
 {
+	CreatMazeMap(arrMap);
 	while (true)
 	{
 		Update();
