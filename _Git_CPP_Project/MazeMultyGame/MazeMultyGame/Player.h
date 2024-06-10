@@ -1,8 +1,8 @@
 #pragma once
+#include "Vector.h"
 class Player
 {
 public:
-	int x;
-	int y;
+	Vector2* vector;
 };
 
