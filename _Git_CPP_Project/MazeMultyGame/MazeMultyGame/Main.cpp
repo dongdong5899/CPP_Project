@@ -2,10 +2,10 @@
 #include"Core.h"
 #include "Player.h"
 int main() {
-	char gayFuck[MAP_HEIGHT][MAP_WIDTH];
 	Core* c = Core::GetInst();
 	Player* p = new Player();
-	c->Init(gayFuck);
-	c->Run(gayFuck, *p);
+	p->vector = new Vector2(0,0);
+	c->Init(p);
+	c->Run();
 	c->DestoryInst();
 }

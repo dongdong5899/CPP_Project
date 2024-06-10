@@ -11,8 +11,8 @@ private:
 	Core();
 	//~Core();
 public:
-	bool Init(char gayFuck[MAP_HEIGHT][MAP_WIDTH]);
-	void Run(char gayFuck[MAP_HEIGHT][MAP_WIDTH], Player& player);
+	bool Init(Player* player);
+	void Run();
 	static Core* GetInst()
 	{
 		if (m_pInst == nullptr)
@@ -28,9 +28,10 @@ public:
 		WALL = '0', ROAD, START, GOAL, BOMB, FLASH_BOMB, EXTRA_BOMB, SLIME, PUSH, ITEM
 	};
 private:
-	void Update(char gayFuck[MAP_HEIGHT][MAP_WIDTH], Player& player);
-	void Render(char gayFuck[MAP_HEIGHT][MAP_WIDTH], Player& player);
+	void Update();
+	void Render();
 	static Core* m_pInst;
-	char arrMap[MAP_WIDTH][MAP_HEIGHT];
 
+	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
+	Player* player;
 };
