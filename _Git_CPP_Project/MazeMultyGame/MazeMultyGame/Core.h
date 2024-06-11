@@ -2,7 +2,6 @@
 #include "define.h"
 #include "Player.h"
 #include<iostream>
-#include<vector>
 const int MAP_WIDTH = 21;
 const int MAP_HEIGHT = 20;
 class Core
@@ -11,7 +10,7 @@ private:
 	Core();
 	//~Core();
 public:
-	bool Init(Player* player);
+	bool Init(Player* player, Player* player2);
 	void Run();
 	static Core* GetInst()
 	{
@@ -34,4 +33,5 @@ private:
 
 	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
 	Player* player;
+	Player* player2;
 };
