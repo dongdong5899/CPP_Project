@@ -95,10 +95,10 @@ Vector2 GetMovePos(Vector2 startPos, bool isArrow)
 		newPos.x++;
 
 	//Clamp
-	if (newPos.x >= MAP_WIDTH - 2 || newPos.x < 0)
+	if (newPos.x >= MAP_WIDTH || newPos.x < 0)
 		newPos.x = startPos.x;
-	if (newPos.y >= MAP_WIDTH - 2 || newPos.y < 0)
-		newPos.y = startPos.x;
+	if (newPos.y >= MAP_WIDTH || newPos.y < 0)
+		newPos.y = startPos.y;
 
 	//clamp
 	/*newPos.x = newPos.x < MAP_WIDTH - 2 ? newPos.x : MAP_WIDTH - 2;
@@ -118,8 +118,9 @@ void Core::Render()
 		{
 			if (player1->currentPos.x == j && player1->currentPos.y == i)
 				cout << "¡Ü";
-			else if (player2->currentPos.x == j && player1->currentPos.y == i)
+			else if (player2->currentPos.x == j && player2->currentPos.y == i)
 				cout << "¡Û";
+
 			else if (arrMap[i][j] == (char)OBJ_TYPE::WALL)
 				cout << "¡á";
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ROAD)
