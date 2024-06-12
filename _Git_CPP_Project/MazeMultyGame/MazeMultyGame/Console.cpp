@@ -14,15 +14,15 @@ void FullScrean()
 		VK_RETURN, 0x20000000);
 }
 
-void Gotoxy(int x, int y)
-{
-	//콘솔창 핸들
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	//커서 관련 구조체
-	COORD Cur = { x, y }; //{x * 2, y} 가 더 자연스러울 수도 있음
-	//커서 포지션 세팅 함수
-	SetConsoleCursorPosition(hOut, Cur);
-}
+//void Gotoxy(int x, int y)
+//{
+//	//콘솔창 핸들
+//	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+//	//커서 관련 구조체
+//	COORD Cur = { x, y }; //{x * 2, y} 가 더 자연스러울 수도 있음
+//	//커서 포지션 세팅 함수
+//	SetConsoleCursorPosition(hOut, Cur);
+//}
 
 BOOL GotoPos(int x, int y)
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 void FullScrean();
-void Gotoxy(int x, int y);
+//void Gotoxy(int x, int y);
 BOOL GotoPos(int x, int y);
 COORD CursorPos();
 void CursorVis(bool vis, DWORD size);

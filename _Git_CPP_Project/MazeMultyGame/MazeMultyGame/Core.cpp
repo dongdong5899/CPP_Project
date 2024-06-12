@@ -111,7 +111,7 @@ Vector2 GetMovePos(Vector2 startPos, bool isArrow)
 
 void Core::Render()
 {
-	Gotoxy(0, 0);
+	GotoPos(0, 0);
 	for (int i = 0; i < MAP_HEIGHT; ++i)
 	{
 		for (int j = 0; j < MAP_WIDTH; ++j)
