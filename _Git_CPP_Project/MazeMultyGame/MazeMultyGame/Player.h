@@ -4,6 +4,6 @@ using namespace VietEngine;
 class Player
 {
 public:
-	Vector2 vector;
+	Vector2 currentPos;
 };
 

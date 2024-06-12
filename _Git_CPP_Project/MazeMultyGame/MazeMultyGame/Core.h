@@ -32,6 +32,6 @@ private:
 	static Core* m_pInst;
 
 	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
-	Player* player;
+	Player* player1;
 	Player* player2;
 };

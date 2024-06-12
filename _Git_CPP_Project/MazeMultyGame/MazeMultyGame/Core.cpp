@@ -8,7 +8,10 @@
 Core::Core() {
 
 }
-bool Core::Init(Player* _player, Player* _player2)
+
+Vector2 GetMovePos(Vector2 startPos, bool isArrow = true);
+
+bool Core::Init(Player* _player1, Player* _player2)
 {
 	system("title 22Bombman | mode con cols=80 lines=40");
 
@@ -36,7 +39,7 @@ bool Core::Init(Player* _player, Player* _player2)
 	strcpy_s(arrMap[17], "00000100000000000100");
 	strcpy_s(arrMap[18], "00000111111111111100");
 	strcpy_s(arrMap[19], "00000000000000000000");
-	player = _player;
+	player1 = _player1;
 	player2 = _player2;
 	return true;
 }
@@ -46,60 +49,79 @@ void Core::Run()
 	while (true)
 	{
 		Update();
-		HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-		COORD Cur = { 0, 0 }; //{x * 2, y} 가 더 자연스러울 수도 있음
-		SetConsoleCursorPosition(hOut, Cur);
+		//HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+		//COORD Cur = { 0, 0 }; //{x * 2, y} 가 더 자연스러울 수도 있음
+		//SetConsoleCursorPosition(hOut, Cur);
 		Render();
 		Sleep(25);
 	}
 }
 void Core::Update()
 {
-	Vector2 newPos = player->vector;
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
+	//Vector2 newPos = player1->currentPos;
+	//if (GetAsyncKeyState(VK_UP) & 0x8000)
+	//	newPos.y--;
+	//if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	//	newPos.y++;
+	//if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	//	newPos.x--;
+	//if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	//	newPos.x++;
+
+	////clamp
+	//newPos.x = newPos.x < MAP_WIDTH - 2 ? newPos.x : MAP_WIDTH - 2;
+	//newPos.y = newPos.y < MAP_WIDTH - 1 ? newPos.y : MAP_HEIGHT - 1;
+
+	//newPos.x = newPos.x > 0 ? newPos.x : 0;
+	//newPos.y = newPos.y > 0 ? newPos.y : 0;
+	//player1->currentPos = newPos;
+
+	player1->currentPos = GetMovePos(player1->currentPos, false);
+	player2->currentPos = GetMovePos(player2->currentPos, true);
+}
+
+Vector2 GetMovePos(Vector2 startPos, bool isArrow)
+{
+	Vector2 newPos = startPos;
+
+	//입력
+	if (GetAsyncKeyState(isArrow ? VK_UP : 0x57) & 0x8000)
 		newPos.y--;
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	if (GetAsyncKeyState(isArrow ? VK_DOWN : 0x53) & 0x8000)
 		newPos.y++;
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	if (GetAsyncKeyState(isArrow ? VK_LEFT : 0x41) & 0x8000)
 		newPos.x--;
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	if (GetAsyncKeyState(isArrow ? VK_RIGHT : 0x44) & 0x8000)
 		newPos.x++;
 
+	//Clamp
+	if (newPos.x >= MAP_WIDTH - 2 || newPos.x < 0)
+		newPos.x = startPos.x;
+	if (newPos.y >= MAP_WIDTH - 2 || newPos.y < 0)
+		newPos.y = startPos.x;
+
 	//clamp
-	newPos.x = newPos.x < MAP_WIDTH - 2 ? newPos.x : MAP_WIDTH - 2;
+	/*newPos.x = newPos.x < MAP_WIDTH - 2 ? newPos.x : MAP_WIDTH - 2;
 	newPos.y = newPos.y < MAP_WIDTH - 1 ? newPos.y : MAP_HEIGHT - 1;
 
 	newPos.x = newPos.x > 0 ? newPos.x : 0;
-	newPos.y = newPos.y > 0 ? newPos.y : 0;
-	player->vector = newPos;
-
-	Vector2 newPos2 = player2->vector;
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
-		newPos2.y--;
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-		newPos2.y++;
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-		newPos2.x--;
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-		newPos2.x++;
-
-	//clamp
-	newPos2.x = newPos2.x < MAP_WIDTH - 2 ? newPos2.x : MAP_WIDTH - 2;
-	newPos2.y = newPos2.y < MAP_WIDTH - 1 ? newPos2.y : MAP_HEIGHT - 1;
-
-	newPos2.x = newPos2.x > 0 ? newPos2.x : 0;
-	newPos2.y = newPos2.y > 0 ? newPos2.y : 0;
-	player2->vector = newPos2;
+	newPos.y = newPos.y > 0 ? newPos.y : 0;*/
+	return newPos;
 }
 
 void Core::Render()
 {
+	Gotoxy(0, 0);
 	for (int i = 0; i < MAP_HEIGHT; ++i)
 	{
 		for (int j = 0; j < MAP_WIDTH; ++j)
 		{
-			if (arrMap[i][j] == (char)OBJ_TYPE::WALL)
-				cout << "ㅁ";
+			if (player1->currentPos.x == j && player1->currentPos.y == i)
+				cout << "●";
+			else if (player2->currentPos.x == j && player1->currentPos.y == i)
+				cout << "○";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::WALL)
+				cout << "■";
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ROAD)
 				cout << "  ";
 			else if (arrMap[i][j] == (char)OBJ_TYPE::START)
@@ -109,11 +131,7 @@ void Core::Render()
 		}
 		cout << endl;
 	}
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	/*HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD Cur = { player->vector.x * 2, player->vector.y };
-	SetConsoleCursorPosition(hOut, Cur);
-	cout << "노";
-
-	//HANDLE hOut2 = GetStdHandle(STD_OUTPUT_HANDLE);
-	//cout << "무";
+	SetConsoleCursorPosition(hOut, Cur);*/
 }
