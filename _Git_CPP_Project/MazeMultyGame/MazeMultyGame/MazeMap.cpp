@@ -31,9 +31,12 @@ void CreatMazeMap(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
             else if (random == 1)
                 _arrMap[y][x + 1] = (char)Core::OBJ_TYPE::ROAD;
 
-            random = rand() % 2;
+            random = rand() % 5;
             if (flag && random == 0)
+            {
+                _arrMap[y][x + 1] = (char)Core::OBJ_TYPE::ROAD;
                 flag = false;
+            }
         }
     }
 
