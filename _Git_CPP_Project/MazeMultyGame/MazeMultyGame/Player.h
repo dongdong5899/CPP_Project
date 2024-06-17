@@ -1,9 +1,8 @@
 #pragma once
 #include "Vector.h"
 #include "Item_A_RandomMove.h"
-#include "MonoBehavior.h"
 #include "define.h"
-class Player : public MonoBehavior
+class Player
 {
 public:
 	Item* item = nullptr;
