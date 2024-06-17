@@ -49,3 +49,12 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 
 	currentPos = newPos;
 }
+
+int Player::GetRenderDistance(int x, int y)
+{
+	int renderDis = isBlind ? RenderLevel : 1 +
+		(int)pow(Vector2::GetDistanceSqrt(currentPos, Vector2(x, y)), 0.7f) - eyesight;
+	renderDis = RenderLevel - renderDis;
+	if (renderDis < 0) renderDis = 0;
+	return renderDis;
+}
