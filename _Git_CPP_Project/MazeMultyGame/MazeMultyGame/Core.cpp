@@ -61,51 +61,8 @@ void Core::Update()
 	//newPos.y = newPos.y > 0 ? newPos.y : 0;
 	//player1->currentPos = newPos;
 
-	player1->currentPos = GetMovePos(arrMap, player1->currentPos, false);
-	player2->currentPos = GetMovePos(arrMap, player2->currentPos, true);
-}
-
-Vector2 GetMovePos(char _arrMap[MAP_HEIGHT][MAP_WIDTH], Vector2 _startPos, bool _isArrow)
-{
-	Vector2 newPos = _startPos;
-
-	//입력
-	if (GetAsyncKeyState(_isArrow ? VK_UP : 0x57) & 0x8000)
-		newPos.y--;
-	if (GetAsyncKeyState(_isArrow ? VK_DOWN : 0x53) & 0x8000)
-		newPos.y++;
-	if (GetAsyncKeyState(_isArrow ? VK_LEFT : 0x41) & 0x8000)
-		newPos.x--;
-	if (GetAsyncKeyState(_isArrow ? VK_RIGHT : 0x44) & 0x8000)
-		newPos.x++;
-
-	//Clamp
-	if (newPos.x >= MAP_WIDTH || newPos.x < 0)
-		newPos.x = _startPos.x;
-	if (newPos.y >= MAP_HEIGHT || newPos.y < 0)
-		newPos.y = _startPos.y;
-
-
-	if (_arrMap[newPos.y][newPos.x] == (char)Core::OBJ_TYPE::WALL)
-	{
-		if (newPos.x == _startPos.x)
-			newPos.y = _startPos.y;
-		else if (newPos.y == _startPos.y)
-			newPos.x = _startPos.x;
-		else
-		{
-			if (_arrMap[_startPos.y][newPos.x] == (char)Core::OBJ_TYPE::ROAD)
-				newPos.y = _startPos.y;
-			else if (_arrMap[newPos.y][_startPos.x] == (char)Core::OBJ_TYPE::ROAD)
-				newPos.x = _startPos.x;
-			else
-				newPos = _startPos;
-		}
-	}
-
-
-
-	return newPos;
+	player1->Move(arrMap);
+	player2->Move(arrMap);
 }
 
 void Core::Render()
@@ -116,12 +73,12 @@ void Core::Render()
 		for (int j = 0; j < MAP_WIDTH; ++j)
 		{
 			//플레이어들과의 거리
-			int player1Dis
-				= RenderLevel - 1 - ((int)sqrt(pow((player1->currentPos.x - j), 2) + pow((player1->currentPos.y - i), 2)) - 0);
+			int player1Dis = player1->isBlind ? 0 : RenderLevel - 1 -
+				((int)pow(pow((player1->currentPos.x - j), 2) + pow((player1->currentPos.y - i), 2), 0.7f) - 1);
 			if (player1Dis < 0) player1Dis = 0;
 
-			int player2Dis
-				= RenderLevel - 1 - ((int)sqrt(pow((player2->currentPos.x - j), 2) + pow((player2->currentPos.y - i), 2)) - 0);
+			int player2Dis = player2->isBlind ? 0 : RenderLevel - 1 -
+				((int)pow(pow((player2->currentPos.x - j), 2) + pow((player2->currentPos.y - i), 2), 0.7f) - 1);
 			if (player2Dis < 0) player2Dis = 0;
 
 			int playersDis = player1Dis + player2Dis;
