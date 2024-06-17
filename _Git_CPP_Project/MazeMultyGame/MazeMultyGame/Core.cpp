@@ -2,17 +2,14 @@
 #include "MazeMap.h"
 #include <string.h>
 #include <algorithm>
-#include <math.h>
 #include "Core.h"
 #include "Console.h"
+#include "Vector.h"
 Core* Core::m_pInst = nullptr;
 Core::Core() {
 
 }
 
-Vector2 GetMovePos(char _arrMap[MAP_HEIGHT][MAP_WIDTH], Vector2 startPos, bool isArrow = true);
-
-#define RenderLevel 7
 const char Wall[RenderLevel][4] = { "  ", "ㆍ", "＊", "ㅁ", "□", "▣", "■"};
 
 bool Core::Init(Player* _player1, Player* _player2)
@@ -34,33 +31,12 @@ void Core::Run()
 	while (true)
 	{
 		Update();
-		//HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-		//COORD Cur = { 0, 0 }; //{x * 2, y} 가 더 자연스러울 수도 있음
-		//SetConsoleCursorPosition(hOut, Cur);
 		Render();
 		Sleep(25);
 	}
 }
 void Core::Update()
 {
-	//Vector2 newPos = player1->currentPos;
-	//if (GetAsyncKeyState(VK_UP) & 0x8000)
-	//	newPos.y--;
-	//if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-	//	newPos.y++;
-	//if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	//	newPos.x--;
-	//if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	//	newPos.x++;
-
-	////clamp
-	//newPos.x = newPos.x < MAP_WIDTH - 2 ? newPos.x : MAP_WIDTH - 2;
-	//newPos.y = newPos.y < MAP_WIDTH - 1 ? newPos.y : MAP_HEIGHT - 1;
-
-	//newPos.x = newPos.x > 0 ? newPos.x : 0;
-	//newPos.y = newPos.y > 0 ? newPos.y : 0;
-	//player1->currentPos = newPos;
-
 	player1->Move(arrMap);
 	player2->Move(arrMap);
 }
@@ -73,13 +49,8 @@ void Core::Render()
 		for (int j = 0; j < MAP_WIDTH; ++j)
 		{
 			//플레이어들과의 거리
-			int player1Dis = player1->isBlind ? 0 : RenderLevel - 1 -
-				((int)pow(pow((player1->currentPos.x - j), 2) + pow((player1->currentPos.y - i), 2), 0.7f) - 1);
-			if (player1Dis < 0) player1Dis = 0;
-
-			int player2Dis = player2->isBlind ? 0 : RenderLevel - 1 -
-				((int)pow(pow((player2->currentPos.x - j), 2) + pow((player2->currentPos.y - i), 2), 0.7f) - 1);
-			if (player2Dis < 0) player2Dis = 0;
+			int player1Dis = player1->GetRenderDistance(j, i);
+			int player2Dis = player2->GetRenderDistance(j, i);
 
 			int playersDis = player1Dis + player2Dis;
 			if (playersDis > RenderLevel - 1) playersDis = RenderLevel - 1;
@@ -102,7 +73,4 @@ void Core::Render()
 		}
 		cout << endl;
 	}
-	/*HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD Cur = { player->vector.x * 2, player->vector.y };
-	SetConsoleCursorPosition(hOut, Cur);*/
 }
