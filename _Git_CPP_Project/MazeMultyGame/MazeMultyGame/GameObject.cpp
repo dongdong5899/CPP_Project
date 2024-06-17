@@ -1,4 +1,10 @@
 #include "GameObject.h"
-namespace VietEngine {
 
+void GameObject::SetActive(bool value)
+{
+	active = value;
+}
+
+void GameObject::AddComponent(Component c)
+{
 }

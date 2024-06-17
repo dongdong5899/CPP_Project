@@ -31,6 +31,7 @@ private:
 	void Render();
 	static Core* m_pInst;
 
+	//gay
 	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
 	Player* player1;
 	Player* player2;
