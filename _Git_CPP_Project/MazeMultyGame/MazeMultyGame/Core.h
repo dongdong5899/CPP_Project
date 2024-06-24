@@ -22,7 +22,7 @@ public:
 	}
 	enum class OBJ_TYPE
 	{
-		WALL = '0', ROAD, START, GOAL, BOMB, FLASH_BOMB, EXTRA_BOMB, SLIME, PUSH, ITEM
+		WALL = '0', ROAD, START
 	};
 private:
 	void Update();
