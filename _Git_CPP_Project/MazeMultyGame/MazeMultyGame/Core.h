@@ -24,7 +24,7 @@ public:
 	}
 	enum class OBJ_TYPE
 	{
-		WALL = '0', ROAD, START
+		WALL = '0', ROAD, START, ITEM_LIGHT, ITEM_WALLBREAK, ITEM_TELEPORT, ITEM_STOP, ITEM_TIME, ITEM_BLIND
 	};
 private:
 	void Update();
