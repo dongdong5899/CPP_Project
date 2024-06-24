@@ -27,6 +27,7 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="MazeMap.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
@@ -39,6 +40,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MazeMap.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>

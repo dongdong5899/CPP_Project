@@ -14,7 +14,8 @@ const char Wall[RenderLevel][4] = { "  ", "¤ý", "£ª", "¤±", "¡à", "¢Ã", "¡á"};
 
 bool Core::Init(Player* _player1, Player* _player2)
 {
-	system("title 22Bombman | mode con cols=80 lines=40");
+	//FullScrean();
+	system("title 22Bombman | mode con cols=100 lines=50");
 
 	CursorVis(false, 1);
 	LockResize();
