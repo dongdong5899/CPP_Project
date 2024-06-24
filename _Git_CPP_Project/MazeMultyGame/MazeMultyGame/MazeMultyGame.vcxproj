@@ -24,6 +24,7 @@
     <ClInclude Include="define.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Item_A_RandomMove.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="MazeMap.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Title.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Item_A_RandomMove.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MazeMap.cpp" />
     <ClCompile Include="Player.cpp" />

@@ -29,12 +29,46 @@ bool Core::Init(Player* _player1, Player* _player2)
 }
 void Core::Run()
 {
+	PlayerInit();
 	while (true)
 	{
 		Update();
 		Render();
+		Physics();
 		Sleep(25);
 	}
+}
+void Core::Physics()
+{
+	CollisionDetection(player1, player1->newPos);
+	CollisionDetection(player2, player2->newPos);
+}
+void Core::CollisionDetection(Player* player, Vector2 newPos)
+{
+	Vector2 currentPos = player->currentPos;
+	if (newPos.x >= MAP_WIDTH || newPos.x < 0)
+		newPos.x = currentPos.x;
+	if (newPos.y >= MAP_HEIGHT || newPos.y < 0)
+		newPos.y = currentPos.y;
+
+
+	if (arrMap[newPos.y][newPos.x] == (char)Core::OBJ_TYPE::WALL)
+	{
+		if (newPos.x == currentPos.x)
+			newPos.y = currentPos.y;
+		else if (newPos.y == currentPos.y)
+			newPos.x = currentPos.x;
+		else
+		{
+			if (arrMap[currentPos.y][newPos.x] == (char)Core::OBJ_TYPE::ROAD)
+				newPos.y = currentPos.y;
+			else if (arrMap[newPos.y][currentPos.x] == (char)Core::OBJ_TYPE::ROAD)
+				newPos.x = currentPos.x;
+			else
+				newPos = currentPos;
+		}
+	}
+	player->currentPos = newPos;
 }
 void Core::Update()
 {
@@ -74,4 +108,11 @@ void Core::Render()
 		}
 		cout << endl;
 	}
+
+}
+
+void Core::PlayerInit()
+{
+	player1->Init();
+	player2->Init();
 }

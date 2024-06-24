@@ -10,6 +10,8 @@ private:
 public:
 	bool Init(Player* player, Player* player2);
 	void Run();
+	void Physics();
+	void CollisionDetection(Player* player, Vector2 newPos);
 	static Core* GetInst()
 	{
 		if (m_pInst == nullptr)
@@ -27,6 +29,7 @@ public:
 private:
 	void Update();
 	void Render();
+	void PlayerInit();
 	static Core* m_pInst;
 
 	//gay
