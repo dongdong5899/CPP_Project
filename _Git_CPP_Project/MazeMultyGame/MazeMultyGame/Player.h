@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "define.h"
-#include "Item_A_RandomMove.h"
+#include "Item.h"
 class Player
 {
 public:

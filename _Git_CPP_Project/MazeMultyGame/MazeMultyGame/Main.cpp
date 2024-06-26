@@ -1,7 +1,7 @@
 #include"Core.h"
 #include"Title.h"
 #include "Player.h"
-#include "Item_A_RandomMove.h"
+#include "Item.h"
 #include "Console.h"
 int main() {
 	Core* c = Core::GetInst();

@@ -1,4 +1,4 @@
-#include "Item_A_RandomMove.h"
+#include "Item.h"
 #include "Console.h"
 #include "Log.h"
 void Item_A_RandomMove::UseItem(bool isP1)

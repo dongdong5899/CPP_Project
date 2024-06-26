@@ -2,7 +2,7 @@
 #include "define.h"
 #include "Player.h"
 #include<iostream>
-#include "Item_A_RandomMove.h"
+#include "Item.h"
 class Core
 {
 private:
