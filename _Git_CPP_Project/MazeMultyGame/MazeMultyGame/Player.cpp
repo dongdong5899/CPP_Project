@@ -27,9 +27,9 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	this->newPos = newPos;
 
 	//use item
-	//if ((isArrowInput ? GetKey('L') : GetKey('E')) && item != nullptr) {
-	//	item->UseItem(!isArrowInput);
-	//}
+	if ((isArrowInput ? GetKey('L') : GetKey('E'))) {
+		TryUseItem(OBJ_TYPE::ITEM_TELEPORT);
+	}
 }
 
 bool Player::GetKey(int input)
@@ -46,6 +46,11 @@ int Player::GetRenderDistance(int x, int y)
 	return renderDis;
 }
 
+void Player::AddItem(OBJ_TYPE type, int amount = 1)
+{
+	itemDictionary[type] += amount;
+}
+
 //void Player::SetItem(Item* item)
 //{
 //	this->item = item;
@@ -54,4 +59,12 @@ int Player::GetRenderDistance(int x, int y)
 void Player::Init()
 {
 	newPos = currentPos;
+}
+
+void Player::TryUseItem(OBJ_TYPE ItemType)
+{
+	if (itemDictionary[ItemType] > 0) {
+		itemDictionary[ItemType]--;
+		
+	}
 }

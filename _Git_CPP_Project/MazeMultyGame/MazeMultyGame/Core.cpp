@@ -72,7 +72,7 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 	//item detection
 	bool gotItem = false;
 	if (arrMap[player->currentPos.y][player->currentPos.x] == (char)OBJ_TYPE::ITEM_TELEPORT) {
-		//player->SetItem(new Item_A_RandomMove());
+		player->AddItem(OBJ_TYPE::ITEM_TELEPORT, 1);
 		gotItem = true;
 	}
 	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
