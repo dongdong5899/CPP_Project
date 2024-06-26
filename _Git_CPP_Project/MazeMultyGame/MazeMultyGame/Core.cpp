@@ -35,7 +35,7 @@ void Core::Run()
 		Update();
 		Physics();
 		Render();
-		Sleep(25);
+		//Sleep(25);
 	}
 }
 void Core::Physics()
@@ -51,7 +51,6 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 	if (newPos.y >= MAP_HEIGHT || newPos.y < 0)
 		newPos.y = currentPos.y;
 
-
 	if (arrMap[newPos.y][newPos.x] == (char)Core::OBJ_TYPE::WALL)
 	{
 		if (newPos.x == currentPos.x)
@@ -60,9 +59,9 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 			newPos.x = currentPos.x;
 		else
 		{
-			if (arrMap[currentPos.y][newPos.x] == (char)Core::OBJ_TYPE::ROAD)
+			if (arrMap[currentPos.y][newPos.x] != (char)Core::OBJ_TYPE::WALL)
 				newPos.y = currentPos.y;
-			else if (arrMap[newPos.y][currentPos.x] == (char)Core::OBJ_TYPE::ROAD)
+			else if (arrMap[newPos.y][currentPos.x] != (char)Core::OBJ_TYPE::WALL)
 				newPos.x = currentPos.x;
 			else
 				newPos = currentPos;
@@ -108,10 +107,20 @@ void Core::Render()
 				cout << Wall[playersDis];
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ROAD)
 				cout << "  ";
-			//items here
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TELEPORT) {
-				cout << "TT";
-			}
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_LIGHT)
+				cout << "ÎÃ";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_WALLBREAK)
+				cout << "¡Ø";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TELEPORT)
+				cout << "¢å";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_STOP)
+				cout << "¥È";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TIME)
+				cout << "¢â";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_BLIND)
+				cout << "¢±";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_EYEUP)
+				cout << "¡è";
 		}
 		cout << endl;
 	}

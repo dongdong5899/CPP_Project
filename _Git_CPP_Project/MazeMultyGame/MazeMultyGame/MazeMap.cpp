@@ -1,5 +1,6 @@
 #include "MazeMap.h"
 
+char GetRoadOrItem();
 
 void CreatMazeMap(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 {
@@ -26,15 +27,15 @@ void CreatMazeMap(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
             if (random == 0)
             {
                 flag = true;
-                _arrMap[y + 1][x] = (char)Core::OBJ_TYPE::ROAD;
+                _arrMap[y + 1][x] = GetRoadOrItem();
             }
             else if (random == 1)
-                _arrMap[y][x + 1] = (char)Core::OBJ_TYPE::ROAD;
+                _arrMap[y][x + 1] = GetRoadOrItem();
 
             random = rand() % 5;
             if (flag && random == 0)
             {
-                _arrMap[y][x + 1] = (char)Core::OBJ_TYPE::ROAD;
+                _arrMap[y][x + 1] = GetRoadOrItem();
                 flag = false;
             }
         }
@@ -49,4 +50,16 @@ void CreatMazeMap(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
     {
         _arrMap[MAP_HEIGHT - 1][x] = (char)Core::OBJ_TYPE::ROAD;
     }
+}
+
+char GetRoadOrItem()
+{
+    char resualt = (char)Core::OBJ_TYPE::ROAD;
+    int random = rand() % 50 + 1;
+    if (random <= 7)
+    {
+        resualt += random;
+    }
+
+    return resualt;
 }
