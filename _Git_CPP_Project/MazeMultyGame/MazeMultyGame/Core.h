@@ -23,7 +23,7 @@ public:
 	{
 		SAFE_DELETE(m_pInst);
 	}
-
+	Player* GetAther(Player player);
 	
 private:
 	void Update();

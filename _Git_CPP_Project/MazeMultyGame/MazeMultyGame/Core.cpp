@@ -67,6 +67,8 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 				newPos = currentPos;
 		}
 	}
+
+
 	player->currentPos = newPos;
 
 	//item detection
@@ -76,6 +78,13 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 		gotItem = true;
 	}
 	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
+}
+Player* Core::GetAther(Player player)
+{
+	if (player.isArrowInput == player1->isArrowInput)
+		return player2;
+	else
+		return player1;
 }
 void Core::Update()
 {
@@ -99,10 +108,18 @@ void Core::Render()
 
 			//±×¸®±â
 			if (player1->currentPos.x == j && player1->currentPos.y == i)
+			{
+				SetColor((int)COLOR::YELLOW);
 				cout << "¡Ü";
+				SetColor((int)COLOR::WHITE);
+			}
 			else if (player2->currentPos.x == j && player2->currentPos.y == i)
-				cout << "¡Û";
+			{
 
+				SetColor((int)COLOR::YELLOW);
+				cout << "¡Û";
+				SetColor((int)COLOR::WHITE);
+			}
 			else if (arrMap[i][j] == (char)OBJ_TYPE::WALL)
 				cout << Wall[playersDis];
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ROAD)
