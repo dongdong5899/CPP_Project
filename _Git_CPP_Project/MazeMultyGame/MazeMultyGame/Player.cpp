@@ -1,3 +1,4 @@
+
 #include "Core.h"
 #include <time.h>
 
@@ -25,11 +26,9 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 		newPos.x++;
 	this->newPos = newPos;
 
-	if (isArrowInput ? GetKey('L') : GetKey('E')) {
-		item->UseItem();
-	}
-	if (isArrowInput ? GetKey('N') : GetKey('V')) {
-		SetItem(new Item_A_RandomMove());
+	//use item
+	if ((isArrowInput ? GetKey('L') : GetKey('E')) && item != nullptr) {
+		item->UseItem(!isArrowInput);
 	}
 }
 

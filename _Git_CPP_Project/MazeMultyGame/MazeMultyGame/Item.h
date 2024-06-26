@@ -1,7 +1,9 @@
 #pragma once
+
 class Item abstract
 {
+
 public:
-	//virtual ~Item() = default;
-	virtual void UseItem() = 0;
+	virtual void UseItem(bool isP1) = 0;
+
 };

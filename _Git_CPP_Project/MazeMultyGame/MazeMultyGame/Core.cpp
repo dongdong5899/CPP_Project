@@ -2,7 +2,6 @@
 #include "MazeMap.h"
 #include <string.h>
 #include <algorithm>
-#include "Core.h"
 #include "Console.h"
 #include "Vector.h"
 Core* Core::m_pInst = nullptr;
@@ -22,6 +21,7 @@ bool Core::Init(Player* _player1, Player* _player2)
 	SetFontSize(FW_BOLD, 20, 20);
 
 	CreatMazeMap(arrMap);
+	arrMap[10][10] = (char)Core::OBJ_TYPE::ITEM_TELEPORT;
 
 	player1 = _player1;
 	player2 = _player2;
@@ -33,8 +33,8 @@ void Core::Run()
 	while (true)
 	{
 		Update();
-		Render();
 		Physics();
+		Render();
 		Sleep(25);
 	}
 }
@@ -69,6 +69,14 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 		}
 	}
 	player->currentPos = newPos;
+
+	//item detection
+	bool gotItem = false;
+	if (arrMap[player->currentPos.y][player->currentPos.x] == (char)Core::OBJ_TYPE::ITEM_TELEPORT) {
+		player->SetItem(new Item_A_RandomMove());
+		gotItem = true;
+	}
+	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)Core::OBJ_TYPE::ROAD;
 }
 void Core::Update()
 {
@@ -96,21 +104,18 @@ void Core::Render()
 			else if (player2->currentPos.x == j && player2->currentPos.y == i)
 				cout << "¡Û";
 
-
 			else if (arrMap[i][j] == (char)OBJ_TYPE::WALL)
 				cout << Wall[playersDis];
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ROAD)
 				cout << "  ";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::START)
-				cout << "¤»";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::GOAL)
-				cout << "¤º";
+			//items here
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TELEPORT) {
+				cout << "TT";
+			}
 		}
 		cout << endl;
 	}
-
 }
-
 void Core::PlayerInit()
 {
 	player1->Init();

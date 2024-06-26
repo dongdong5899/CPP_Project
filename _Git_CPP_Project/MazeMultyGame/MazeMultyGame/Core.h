@@ -2,6 +2,7 @@
 #include "define.h"
 #include "Player.h"
 #include<iostream>
+#include "Item_A_RandomMove.h"
 class Core
 {
 private:
@@ -24,16 +25,16 @@ public:
 	}
 	enum class OBJ_TYPE
 	{
-		WALL = '0', ROAD, START, ITEM_LIGHT, ITEM_WALLBREAK, ITEM_TELEPORT, ITEM_STOP, ITEM_TIME, ITEM_BLIND, ITEM_EYEUP
+		WALL = '0', ROAD, ITEM_LIGHT, ITEM_WALLBREAK, ITEM_TELEPORT, ITEM_STOP, ITEM_TIME, ITEM_BLIND, ITEM_EYEUP
 	};
+	
 private:
 	void Update();
 	void Render();
 	void PlayerInit();
 	static Core* m_pInst;
-
-	//gay
 	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
+
 	Player* player1;
 	Player* player2;
 };
