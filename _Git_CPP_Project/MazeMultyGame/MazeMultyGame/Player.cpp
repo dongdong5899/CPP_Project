@@ -27,9 +27,9 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	this->newPos = newPos;
 
 	//use item
-	if ((isArrowInput ? GetKey('L') : GetKey('E')) && item != nullptr) {
-		item->UseItem(!isArrowInput);
-	}
+	//if ((isArrowInput ? GetKey('L') : GetKey('E')) && item != nullptr) {
+	//	item->UseItem(!isArrowInput);
+	//}
 }
 
 bool Player::GetKey(int input)
@@ -46,10 +46,10 @@ int Player::GetRenderDistance(int x, int y)
 	return renderDis;
 }
 
-void Player::SetItem(Item* item)
-{
-	this->item = item;
-}
+//void Player::SetItem(Item* item)
+//{
+//	this->item = item;
+//}
 
 void Player::Init()
 {

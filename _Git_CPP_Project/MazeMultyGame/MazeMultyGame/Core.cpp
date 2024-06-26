@@ -21,7 +21,7 @@ bool Core::Init(Player* _player1, Player* _player2)
 	SetFontSize(FW_BOLD, 20, 20);
 
 	CreatMazeMap(arrMap);
-	arrMap[10][10] = (char)Core::OBJ_TYPE::ITEM_TELEPORT;
+	arrMap[1][0] = (char)OBJ_TYPE::ITEM_TELEPORT;
 
 	player1 = _player1;
 	player2 = _player2;
@@ -51,7 +51,7 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 	if (newPos.y >= MAP_HEIGHT || newPos.y < 0)
 		newPos.y = currentPos.y;
 
-	if (arrMap[newPos.y][newPos.x] == (char)Core::OBJ_TYPE::WALL)
+	if (arrMap[newPos.y][newPos.x] == (char)OBJ_TYPE::WALL)
 	{
 		if (newPos.x == currentPos.x)
 			newPos.y = currentPos.y;
@@ -59,9 +59,9 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 			newPos.x = currentPos.x;
 		else
 		{
-			if (arrMap[currentPos.y][newPos.x] != (char)Core::OBJ_TYPE::WALL)
+			if (arrMap[currentPos.y][newPos.x] != (char)OBJ_TYPE::WALL)
 				newPos.y = currentPos.y;
-			else if (arrMap[newPos.y][currentPos.x] != (char)Core::OBJ_TYPE::WALL)
+			else if (arrMap[newPos.y][currentPos.x] != (char)OBJ_TYPE::WALL)
 				newPos.x = currentPos.x;
 			else
 				newPos = currentPos;
@@ -71,11 +71,11 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 
 	//item detection
 	bool gotItem = false;
-	if (arrMap[player->currentPos.y][player->currentPos.x] == (char)Core::OBJ_TYPE::ITEM_TELEPORT) {
+	if (arrMap[player->currentPos.y][player->currentPos.x] == (char)OBJ_TYPE::ITEM_TELEPORT) {
 		player->SetItem(new Item_A_RandomMove());
 		gotItem = true;
 	}
-	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)Core::OBJ_TYPE::ROAD;
+	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
 }
 void Core::Update()
 {

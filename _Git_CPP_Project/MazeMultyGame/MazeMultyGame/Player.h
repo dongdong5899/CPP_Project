@@ -1,10 +1,12 @@
 #pragma once
 #include "Vector.h"
 #include "define.h"
-#include "Item_A_RandomMove.h"
+
+#include <map>
 class Player
 {
 public:
+	std::map<OBJ_TYPE, int> itemDictionary;
 	Vector2 currentPos;
 	Vector2 newPos;
 
@@ -14,10 +16,10 @@ public:
 	void Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH]);
 	bool GetKey(int input);
 	int GetRenderDistance(int x, int y);
-	void SetItem(Item* item);
+	//void SetItem(Item* item);
 	void Init();
 private:
-	Item* item = nullptr;
+	
 	bool isArrowInput = false;
 	int eyesight = 1;
 	clock_t lastMoveTime = 0;

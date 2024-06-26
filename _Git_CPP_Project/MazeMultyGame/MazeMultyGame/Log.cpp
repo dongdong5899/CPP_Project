@@ -1,6 +1,6 @@
 #include "Log.h"
 int Log::currentSize = 0;
-Vector2 Log::startPos = Vector2(22, 1);
+Vector2 Log::startPos = Vector2(41, 1);
 
 Vector2 Log::GetPos()
 {

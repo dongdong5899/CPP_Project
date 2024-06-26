@@ -23,10 +23,7 @@ public:
 	{
 		SAFE_DELETE(m_pInst);
 	}
-	enum class OBJ_TYPE
-	{
-		WALL = '0', ROAD, ITEM_LIGHT, ITEM_WALLBREAK, ITEM_TELEPORT, ITEM_STOP, ITEM_TIME, ITEM_BLIND, ITEM_EYEUP
-	};
+
 	
 private:
 	void Update();
