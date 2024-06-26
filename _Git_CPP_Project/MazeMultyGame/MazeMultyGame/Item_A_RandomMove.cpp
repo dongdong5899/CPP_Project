@@ -1,7 +1,7 @@
 #include "Item.h"
 #include "Console.h"
 #include "Log.h"
-void Item_A_RandomMove::UseItem(bool isP1)
+void Item_A_RandomMove::UseItem(Player isP1)
 {
 	//random move
 	Vector2 pos = Log::GetPos();
@@ -9,8 +9,7 @@ void Item_A_RandomMove::UseItem(bool isP1)
 	cout << "used_item";
 	cout << "_random_Move";//item name
 	Vector2 randomPos = getRandomPos();
-	if (isP1) {
-	}
+
 }
 Vector2 Item_A_RandomMove::getRandomPos()
 {
