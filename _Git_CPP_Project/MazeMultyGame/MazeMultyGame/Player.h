@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "define.h"
+#include "Item.h"
 
 #include <map>
 class Player
