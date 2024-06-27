@@ -8,9 +8,7 @@ Core* Core::m_pInst = nullptr;
 Core::Core() {
 
 }
-
 const char Wall[RenderLevel][4] = { "  ", "¤ý", "£ª", "¤±", "¡à", "¢Ã", "¡á"};
-
 bool Core::Init(Player* _player1, Player* _player2)
 {
 	//FullScrean();
@@ -22,6 +20,9 @@ bool Core::Init(Player* _player1, Player* _player2)
 
 	CreatMazeMap(arrMap);
 	arrMap[1][0] = (char)OBJ_TYPE::ITEM_TELEPORT;
+
+	itemDictionary.emplace(OBJ_TYPE::ITEM_TELEPORT, new Item_A_RandomMove);// adds item
+	itemDictionary.emplace(OBJ_TYPE::ITEM_LIGHT, new Item_A_Light);// adds item
 
 	player1 = _player1;
 	player2 = _player2;
@@ -72,10 +73,14 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 	//item detection
 	bool gotItem = false;
 	if (arrMap[player->currentPos.y][player->currentPos.x] == (char)OBJ_TYPE::ITEM_TELEPORT) {
-		player->AddItem(OBJ_TYPE::ITEM_TELEPORT, 1);
+		player->AddItem(OBJ_TYPE::ITEM_TELEPORT);
 		gotItem = true;
 	}
 	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
+}
+void Core::UseItem(OBJ_TYPE type, Player* p)
+{
+	itemDictionary[type]->UseItem(p);
 }
 void Core::Update()
 {

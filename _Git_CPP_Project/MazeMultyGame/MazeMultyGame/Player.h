@@ -1,8 +1,6 @@
 #pragma once
 #include "Vector.h"
 #include "define.h"
-#include "Item.h"
-
 #include <map>
 class Player
 {
@@ -21,7 +19,6 @@ public:
 	//void SetItem(Item* item);
 	void Init();
 private:
-	
 	void TryUseItem(OBJ_TYPE ItemType);
 	bool isArrowInput = false;
 	int eyesight = 1;

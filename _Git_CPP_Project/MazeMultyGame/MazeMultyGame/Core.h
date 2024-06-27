@@ -23,9 +23,10 @@ public:
 	{
 		SAFE_DELETE(m_pInst);
 	}
+	void UseItem(OBJ_TYPE type, Player* p);
 
-	
 private:
+	std::map<OBJ_TYPE, Item*> itemDictionary;
 	void Update();
 	void Render();
 	void PlayerInit();

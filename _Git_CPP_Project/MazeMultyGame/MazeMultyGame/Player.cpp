@@ -1,4 +1,3 @@
-
 #include "Core.h"
 #include <time.h>
 
@@ -46,7 +45,7 @@ int Player::GetRenderDistance(int x, int y)
 	return renderDis;
 }
 
-void Player::AddItem(OBJ_TYPE type, int amount = 1)
+void Player::AddItem(OBJ_TYPE type, int amount)
 {
 	itemDictionary[type] += amount;
 }
@@ -64,7 +63,9 @@ void Player::Init()
 void Player::TryUseItem(OBJ_TYPE ItemType)
 {
 	if (itemDictionary[ItemType] > 0) {
-		itemDictionary[ItemType]--;
+		
+		Core::GetInst()->UseItem(ItemType, this);
 		
 	}
+
 }
