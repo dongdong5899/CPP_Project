@@ -146,6 +146,11 @@ void Core::Render()
 		}
 		cout << endl;
 	}
+	int x = MAP_WIDTH;
+	int y = 2;
+	GotoPos(x, y);
+	cout << "TIMER : ";
+	cout << 00;
 }
 void Core::PlayerInit()
 {
