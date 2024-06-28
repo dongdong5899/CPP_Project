@@ -9,6 +9,7 @@ Core::Core() {
 
 }
 const char Wall[RenderLevel][4] = { "  ", "¤ý", "£ª", "¤±", "¡à", "¢Ã", "¡á"};
+const char ItemNames[5][100] = { "Map Light", "Wall Break", "Teleport", "Ather Stop", "Ather Blind"};
 bool Core::Init(Player* _player1, Player* _player2)
 {
 	//FullScrean();
@@ -135,14 +136,29 @@ void Core::Render()
 				cout << "¢å";
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_STOP)
 				cout << "¥È";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TIME)
-				cout << "¢â";
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_BLIND)
 				cout << "¢±";
+			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TIME)
+				cout << "¢â";
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_EYEUP)
 				cout << "¡è";
 		}
 		cout << endl;
+	}
+
+	char startChar = (char)OBJ_TYPE::ITEM_LIGHT;
+	for (int i = 0; i < 2; i++)
+	{
+		int xPos = MAP_WIDTH / 2 * i;
+		int yPos = MAP_HEIGHT + 1;
+		GotoPos(xPos, yPos);
+		cout << "Player" << i + 1;
+		Player* p = i == 0 ? player1 : player2;
+		for (int i = 0; i < 5; i++)
+		{
+			GotoPos(xPos, yPos + 1 + i);
+			cout << ItemNames[i] << " : " << p->itemDictionary[(OBJ_TYPE)(startChar + i)];
+		}
 	}
 }
 void Core::PlayerInit()
