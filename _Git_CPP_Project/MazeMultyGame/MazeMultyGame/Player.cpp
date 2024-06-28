@@ -1,5 +1,6 @@
 #include "Core.h"
 #include <time.h>
+//#include "Player.h"
 
 Player::Player(bool _isArrowInput)
 {
@@ -11,6 +12,15 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 {
 	if (lastMoveTime + moveDelay > clock()) return;
 	lastMoveTime = clock();
+	if (isLight && lightStartTime + lightTime < clock())
+	{
+		isLight = false;
+	}
+	if (canMove == false && stopStartTime + stopTime < clock())
+	{
+		canMove = true;
+		return;
+	}
 
 	Vector2 newPos = currentPos;
 
@@ -29,6 +39,9 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	if ((isArrowInput ? GetKey('L') : GetKey('E'))) {
 		TryUseItem(OBJ_TYPE::ITEM_TELEPORT);
 	}
+	if ((isArrowInput ? GetKey('M') : GetKey('F'))) {
+		TryUseItem(OBJ_TYPE::ITEM_LIGHT);
+	}
 }
 
 bool Player::GetKey(int input)
@@ -38,6 +51,7 @@ bool Player::GetKey(int input)
 
 int Player::GetRenderDistance(int x, int y)
 {
+	if (isLight) return 10;
 	int renderDis = isBlind ? RenderLevel : 1 +
 		(int)pow(Vector2::GetDistanceSqrt(currentPos, Vector2(x, y)), 0.7f) - eyesight;
 	renderDis = RenderLevel - renderDis;
@@ -58,6 +72,20 @@ void Player::AddItem(OBJ_TYPE type, int amount)
 void Player::Init()
 {
 	newPos = currentPos;
+}
+
+void Player::SetLight(float time)
+{
+	lightStartTime = clock();
+	lightTime = time;
+	isLight = true;
+}
+
+void Player::Stop(float time)
+{
+	stopStartTime = clock();
+	stopTime = time;
+	canMove = false;
 }
 
 void Player::TryUseItem(OBJ_TYPE ItemType)

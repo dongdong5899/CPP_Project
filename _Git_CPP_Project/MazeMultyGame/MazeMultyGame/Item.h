@@ -23,7 +23,11 @@ private:
 
 class Item_A_Light : public Item
 {
-
+public:
+	virtual void UseItem(Player* player) override;
+};
+class Item_A_Stop : public Item
+{
 public:
 	virtual void UseItem(Player* player) override;
 private:
