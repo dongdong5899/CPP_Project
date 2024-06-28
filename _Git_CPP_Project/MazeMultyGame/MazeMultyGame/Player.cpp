@@ -93,7 +93,6 @@ void Player::TryUseItem(OBJ_TYPE ItemType)
 	if (itemDictionary[ItemType] > 0) {
 		
 		Core::GetInst()->UseItem(ItemType, this);
-		
+		--itemDictionary[ItemType];
 	}
-
 }
