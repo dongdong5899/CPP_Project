@@ -71,9 +71,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Item_A_RandomMove.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -87,6 +84,9 @@
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
     <ClCompile Include="Item_A_Stop.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item_A_RandomMove.cpp">
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
   </ItemGroup>
