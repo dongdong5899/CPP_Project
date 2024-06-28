@@ -13,7 +13,7 @@ void Title::Start()
 		bool isEnd = Update();
 		if (isEnd) break;
 		Rander();
-		Sleep(25);
+		Sleep(50);
 	}
 }
 
@@ -44,6 +44,8 @@ void Title::Rander()
 	GotoPos(x, y);
 	cout << "게임 시작";
 	GotoPos(x, y + 1);
+	cout << "게임 설명";
+	GotoPos(x, y + 2);
 	cout << "게임 종료";
 
 	GotoPos(x - 1, y + currnetPlayerSelectMenu);
@@ -67,7 +69,7 @@ bool Title::Update()
 		++currnetPlayerSelectMenu;
 
 	if (currnetPlayerSelectMenu < 0) currnetPlayerSelectMenu = 0;
-	else if (currnetPlayerSelectMenu > 1) currnetPlayerSelectMenu = 1;
+	else if (currnetPlayerSelectMenu > 2) currnetPlayerSelectMenu = 2;
 
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
@@ -79,6 +81,9 @@ bool Title::Update()
 			Core::GetInst()->Run();
 			Core::DestoryInst();
 			return false;
+		case (int)SelectMenu::GameInfo:
+			UpdateInfo();
+			return false;
 		case (int)SelectMenu::GameExit:
 			system("cls");
 			cout << "종료^^";
@@ -89,4 +94,52 @@ bool Title::Update()
 	}
 
 	return false;
+}
+
+void Title::UpdateInfo()
+{
+	system("cls");
+	COORD Resolution = GetConsoleResolution();
+	int x = (Resolution.X / 2) / 2 - 10;
+	int y = Resolution.Y / 2 - 15;
+	int originy = y;
+	GotoPos(x + 7, y - 2);
+	cout << "게임설명";
+	GotoPos(x, y);
+	cout << "-P1 조작키-";
+	GotoPos(x, y + 2);
+	cout << "WASD : 이동";
+	GotoPos(x, y + 3);
+	cout << "E : 아이템 사용";
+	
+	GotoPos(x + 10, y);
+	cout << "-P2 조작키-";
+	GotoPos(x + 10, y+ 2);
+	cout << "↑←↓→ : 이동";
+	GotoPos(x + 10, y + 3);
+	cout << "L : 아이템 사용";
+
+	WaitUntilNotPressingX(VK_SPACE);
+
+	WaitUntilPressingX(VK_SPACE);
+	system("cls");
+	Init();
+	Rander();
+	WaitUntilNotPressingX(VK_SPACE);
+}
+
+void Title::WaitUntilNotPressingX(int vKey)
+{
+	while (true) {
+		bool pressing = GetAsyncKeyState(vKey) & 0x8000;
+		if (!pressing) break;
+	}
+}
+
+void Title::WaitUntilPressingX(int vKey)
+{
+	while (true) {
+		bool pressing = GetAsyncKeyState(vKey) & 0x8000;
+		if (pressing) break;
+	}
 }
