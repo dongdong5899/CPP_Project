@@ -11,7 +11,9 @@ public:
 	Vector2 newPos;
 
 	bool isBlind = false;
+	bool canMove = true;
 	bool isArrowInput = false;
+	int eyesight = 1;
 
 	Player(bool _isArrowInput);
 	void Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH]);
@@ -22,15 +24,17 @@ public:
 	void Init();
 	void SetLight(float time);
 	void Stop(float time);
+	void Blind(float time);
+	void EyeUp();
 private:
 	void TryUseItem(OBJ_TYPE ItemType);
 	bool isLight = false;
-	bool canMove = true;
 	float lightStartTime = false;
 	float lightTime = false;
 	float stopStartTime = false;
 	float stopTime = false;
-	int eyesight = 1;
+	float blindStartTime = false;
+	float blindTime = false;
 	clock_t lastMoveTime = 0;
 	clock_t moveDelay = 100;
 };

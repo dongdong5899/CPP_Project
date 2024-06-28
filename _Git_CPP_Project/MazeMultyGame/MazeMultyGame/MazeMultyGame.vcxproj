@@ -37,6 +37,9 @@
     <ClCompile Include="Item_A_Light.cpp" />
     <ClCompile Include="Item_A_RandomMove.cpp" />
     <ClCompile Include="Item_A_Stop.cpp" />
+    <ClCompile Include="Item_A_WallBreak.cpp" />
+    <ClCompile Include="Item_P_EyeUp.cpp" />
+    <ClCompile Include="Item_P_Time.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MazeMap.cpp" />
@@ -44,6 +47,7 @@
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Item_A_Blind.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

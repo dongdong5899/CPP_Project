@@ -89,5 +89,17 @@
     <ClCompile Include="Item_A_RandomMove.cpp">
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Item_A_Blind.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item_A_WallBreak.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item_P_EyeUp.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item_P_Time.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

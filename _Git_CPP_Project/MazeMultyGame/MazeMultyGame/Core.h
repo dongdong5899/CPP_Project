@@ -9,7 +9,7 @@ private:
 	Core();
 	//~Core();
 public:
-	bool Init(Player* player, Player* player2);
+	bool Init();
 	void Run();
 	void Physics();
 	void CollisionDetection(Player* player, Vector2 newPos);
@@ -26,14 +26,21 @@ public:
 	Player* GetAther(Player* player);
 	
 	void UseItem(OBJ_TYPE type, Player* p);
-
+	void WallBreak(Vector2 pos);
+	void AddTime(int time);
 private:
 	std::map<OBJ_TYPE, Item*> itemDictionary;
 	void Update();
 	void Render();
 	void PlayerInit();
+	void End();
 	static Core* m_pInst;
 	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
+	int timer;
+	int time_s;
+	int time_m;
+	bool isEnd = false;
+	bool arrowWin = false;
 
 	Player* player1;
 	Player* player2;

@@ -16,6 +16,10 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	{
 		isLight = false;
 	}
+	if (isBlind && blindStartTime + blindTime < clock())
+	{
+		isBlind = false;
+	}
 	if (canMove == false)
 	{
 		if (stopStartTime + stopTime < clock())
@@ -42,14 +46,11 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	this->newPos = newPos;
 
 	//use item
-	if ((isArrowInput ? GetKey('L') : GetKey('E'))) {
+	if ((isArrowInput ? GetKey(VK_RETURN) : GetKey('E'))) {
 		TryUseItem(OBJ_TYPE::ITEM_TELEPORT);
 	}
-	if ((isArrowInput ? GetKey('M') : GetKey('F'))) {
-		TryUseItem(OBJ_TYPE::ITEM_LIGHT);
-	}
-	if ((isArrowInput ? GetKey('K') : GetKey('C'))) {
-		TryUseItem(OBJ_TYPE::ITEM_STOP);
+	if ((isArrowInput ? GetKey(VK_RSHIFT) : GetKey('F'))) {
+		TryUseItem(OBJ_TYPE::ITEM_WALLBREAK);
 	}
 }
 
@@ -71,6 +72,11 @@ int Player::GetRenderDistance(int x, int y)
 void Player::AddItem(OBJ_TYPE type, int amount)
 {
 	itemDictionary[type] += amount;
+	if (type != OBJ_TYPE::ITEM_TELEPORT &&
+		type != OBJ_TYPE::ITEM_WALLBREAK)
+	{
+		TryUseItem(type);
+	}
 }
 
 //void Player::SetItem(Item* item)
@@ -95,6 +101,18 @@ void Player::Stop(float time)
 	stopStartTime = clock();
 	stopTime = time;
 	canMove = false;
+}
+
+void Player::Blind(float time)
+{
+	blindStartTime = clock();
+	blindTime = time;
+	isBlind = true;
+}
+
+void Player::EyeUp()
+{
+	eyesight += 1;
 }
 
 void Player::TryUseItem(OBJ_TYPE ItemType)
