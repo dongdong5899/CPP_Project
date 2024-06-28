@@ -23,7 +23,7 @@ public:
 	{
 		SAFE_DELETE(m_pInst);
 	}
-	Player* GetAther(Player player);
+	Player* GetAther(Player* player);
 	
 	void UseItem(OBJ_TYPE type, Player* p);
 

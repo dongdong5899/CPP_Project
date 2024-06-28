@@ -16,10 +16,16 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	{
 		isLight = false;
 	}
-	if (canMove == false && stopStartTime + stopTime < clock())
+	if (canMove == false)
 	{
-		canMove = true;
-		return;
+		if (stopStartTime + stopTime < clock())
+		{
+			canMove = true;
+		}
+		else
+		{
+			return;
+		}
 	}
 
 	Vector2 newPos = currentPos;
@@ -41,6 +47,9 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	}
 	if ((isArrowInput ? GetKey('M') : GetKey('F'))) {
 		TryUseItem(OBJ_TYPE::ITEM_LIGHT);
+	}
+	if ((isArrowInput ? GetKey('K') : GetKey('C'))) {
+		TryUseItem(OBJ_TYPE::ITEM_STOP);
 	}
 }
 

@@ -24,6 +24,7 @@ bool Core::Init(Player* _player1, Player* _player2)
 
 	itemDictionary.emplace(OBJ_TYPE::ITEM_TELEPORT, new Item_A_RandomMove);// adds item
 	itemDictionary.emplace(OBJ_TYPE::ITEM_LIGHT, new Item_A_Light);// adds item
+	itemDictionary.emplace(OBJ_TYPE::ITEM_STOP, new Item_A_Stop);// adds item
 
 	player1 = _player1;
 	player2 = _player2;
@@ -79,9 +80,9 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 		arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
 	}
 }
-Player* Core::GetAther(Player player)
+Player* Core::GetAther(Player* player)
 {
-	if (player.isArrowInput == player1->isArrowInput)
+	if (player == player1)
 		return player2;
 	else
 		return player1;
