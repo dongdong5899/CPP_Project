@@ -73,12 +73,10 @@ void Core::CollisionDetection(Player* player, Vector2 newPos)
 	player->currentPos = newPos;
 
 	//item detection
-	bool gotItem = false;
-	if (arrMap[player->currentPos.y][player->currentPos.x] == (char)OBJ_TYPE::ITEM_TELEPORT) {
-		player->AddItem(OBJ_TYPE::ITEM_TELEPORT);
-		gotItem = true;
+	if (arrMap[player->currentPos.y][player->currentPos.x] != (char)OBJ_TYPE::ROAD) {
+		player->AddItem((OBJ_TYPE)arrMap[player->currentPos.y][player->currentPos.x]);
+		arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
 	}
-	if (gotItem) arrMap[player->currentPos.y][player->currentPos.x] = (char)OBJ_TYPE::ROAD;
 }
 Player* Core::GetAther(Player player)
 {
