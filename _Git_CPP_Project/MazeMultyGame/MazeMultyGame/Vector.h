@@ -8,7 +8,10 @@ public:
 	int x;
 	int y;
 	static int GetDistanceSqrt(Vector2 pos1, Vector2 pos2);
-//public:
-	//static const Vector2 up;
+
+	bool operator== (const Vector2& vector)
+	{
+		return vector.x == x && vector.y == y;
+	}
 };
 

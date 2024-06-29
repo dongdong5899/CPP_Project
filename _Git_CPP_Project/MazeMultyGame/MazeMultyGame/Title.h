@@ -2,6 +2,12 @@
 class Title
 {
 public:
+	static Title* GetInst()
+	{
+		if (m_pInst == nullptr)
+			m_pInst = new Title;
+		return m_pInst;
+	}
 	void Start();
 private:
 	void Init();
@@ -16,6 +22,8 @@ private:
 	};
 	int currnetPlayerSelectMenu;
 	int prevPlayerSelectMenu;
+
+	static Title* m_pInst;
 };
 
 

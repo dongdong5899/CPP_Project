@@ -5,6 +5,8 @@
 #include <fcntl.h>
 #include <io.h>
 
+Title* Title::m_pInst = nullptr;
+
 void Title::Start()
 {
 	Init();
@@ -20,6 +22,7 @@ void Title::Start()
 void Title::Init()
 {
 	currnetPlayerSelectMenu = (int)SelectMenu::GameStart;
+	prevPlayerSelectMenu = currnetPlayerSelectMenu;
 
 	SetFontSize(FW_BOLD, 40, 40);
 	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
@@ -80,7 +83,7 @@ bool Title::Update()
 			system("cls");
 			Core::GetInst()->Run();
 			Core::DestoryInst();
-			return false;
+			return true;
 		case (int)SelectMenu::GameInfo:
 			UpdateInfo();
 			return false;
@@ -100,24 +103,28 @@ void Title::UpdateInfo()
 {
 	system("cls");
 	COORD Resolution = GetConsoleResolution();
-	int x = (Resolution.X / 2) / 2 - 10;
+	int x = (Resolution.X / 2) / 2;
 	int y = Resolution.Y / 2 - 15;
 	int originy = y;
-	GotoPos(x + 7, y - 2);
+	GotoPos(x - 4, y - 4);
 	cout << "게임설명";
-	GotoPos(x, y);
+	GotoPos(x - 16, y);
 	cout << "-P1 조작키-";
-	GotoPos(x, y + 2);
+	GotoPos(x - 16, y + 2);
 	cout << "WASD : 이동";
-	GotoPos(x, y + 3);
-	cout << "E : 아이템 사용";
+	GotoPos(x - 16, y + 3);
+	cout << "E : 순간이동 사용";
+	GotoPos(x - 16, y + 4);
+	cout << "F : 벽 부수기 사용";
 	
-	GotoPos(x + 10, y);
+	GotoPos(x + 4, y);
 	cout << "-P2 조작키-";
-	GotoPos(x + 10, y+ 2);
+	GotoPos(x + 4, y+ 2);
 	cout << "↑←↓→ : 이동";
-	GotoPos(x + 10, y + 3);
-	cout << "L : 아이템 사용";
+	GotoPos(x + 4, y + 3);
+	cout << "Enter : 순간이동 사용";
+	GotoPos(x + 4, y + 4);
+	cout << "R-Shift : 벽 부수기 사용";
 
 	WaitUntilNotPressingX(VK_SPACE);
 
