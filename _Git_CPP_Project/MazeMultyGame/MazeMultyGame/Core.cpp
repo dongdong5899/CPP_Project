@@ -189,12 +189,14 @@ void Core::Render()
 			if (player1->currentPos.x == j && player1->currentPos.y == i)
 			{
 				SetColor((int)COLOR::YELLOW);
+				if (player1->isBlind || player1->canMove == false) SetColor((int)COLOR::RED);
 				cout << "●";
 				SetColor((int)COLOR::WHITE);
 			}
 			else if (player2->currentPos.x == j && player2->currentPos.y == i)
 			{
 				SetColor((int)COLOR::YELLOW);
+				if (player2->isBlind || player2->canMove == false) SetColor((int)COLOR::RED);
 				cout << "○";
 				SetColor((int)COLOR::WHITE);
 			}
@@ -202,20 +204,24 @@ void Core::Render()
 				cout << Wall[playersDis];
 			else if (arrMap[i][j] == (char)OBJ_TYPE::ROAD)
 				cout << "  ";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_LIGHT)
-				cout << "光";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_WALLBREAK)
-				cout << "※";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TELEPORT)
-				cout << "℡";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_STOP)
-				cout << "Θ";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_BLIND)
-				cout << "∮";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TIME)
-				cout << "™";
-			else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_EYEUP)
-				cout << "↑";
+			if ((arrMap[i][j] != (char)OBJ_TYPE::ROAD) || (arrMap[i][j] != (char)OBJ_TYPE::WALL)) {
+				SetColor((int)COLOR::LIGHT_BLUE);
+				if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_LIGHT)
+					cout << "光";
+				else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_WALLBREAK)
+					cout << "※";
+				else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TELEPORT)
+					cout << "℡";
+				else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_STOP)
+					cout << "Θ";
+				else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_BLIND)
+					cout << "∮";
+				else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_TIME)
+					cout << "™";
+				else if (arrMap[i][j] == (char)OBJ_TYPE::ITEM_EYEUP)
+					cout << "↑";
+				SetColor((int)COLOR::WHITE);
+			}
 		}
 		cout << endl;
 	}
@@ -227,6 +233,16 @@ void Core::Render()
 		int yPos = MAP_HEIGHT + 1;
 		GotoPos(xPos, yPos);
 		cout << "Player" << i + 1;
+		if (i == 0) {
+			SetColor((int)COLOR::YELLOW);
+			cout << " ●(도망자)";
+			SetColor((int)COLOR::WHITE);
+		}
+		else {
+			SetColor((int)COLOR::YELLOW);
+			cout << " ○(술래)";
+			SetColor((int)COLOR::WHITE);
+		}
 		Player* p = i == 0 ? player1 : player2;
 		GotoPos(xPos, yPos + 1);
 		cout << "순간이동 : " << p->itemDictionary[OBJ_TYPE::ITEM_TELEPORT];
@@ -235,9 +251,13 @@ void Core::Render()
 		GotoPos(xPos, yPos + 3);
 		cout << "시아 레벨 : " << p->eyesight;
 		GotoPos(xPos, yPos + 4);
-		cout << (p->isBlind ? "실명" : " ");
+		if(p->isBlind) SetColor((int)COLOR::RED);
+		cout << (p->isBlind ? "실명" : "               ");
+		SetColor((int)COLOR::WHITE);
 		GotoPos(xPos, yPos + 5);
-		cout << (p->canMove == false ? "구속" : " ");
+		if (p->canMove == false) SetColor((int)COLOR::RED);
+		cout << (p->canMove == false ? "구속" : "               ");
+		SetColor((int)COLOR::WHITE);
 	}
 	GotoPos(MAP_WIDTH / 2 - 1, MAP_HEIGHT + 1);
 	cout << time_m << ":";
@@ -254,9 +274,10 @@ void Core::PlayerInit()
 void Core::End()
 {
 	system("cls");
-	GotoPos(MAP_WIDTH / 2, MAP_HEIGHT / 1.5f);
+	GotoPos(MAP_WIDTH / 2 + 2, MAP_HEIGHT / 1.5f - 4);
 	cout << (arrowWin ? "술래 승리!" : "도망자 승리!");
-
+	GotoPos(MAP_WIDTH / 2 - 1 , MAP_HEIGHT / 1.5f );
+	cout << "space 키를 눌러 재시작";
 	while (true)
 	{
 		if (GetAsyncKeyState(VK_SPACE) & 0x8000)

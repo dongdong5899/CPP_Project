@@ -31,6 +31,9 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 			return;
 		}
 	}
+	if (!canUseItem && itemStartTime + itemTime < clock()) {
+		canUseItem = true;
+	}
 
 	Vector2 newPos = currentPos;
 
@@ -46,10 +49,16 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	this->newPos = newPos;
 
 	//use item
-	if ((isArrowInput ? GetKey(VK_RETURN) : GetKey('E'))) {
+	if ((isArrowInput ? GetKey(VK_RETURN) : GetKey('E')) && canUseItem) {
+		itemStartTime = clock();
+		itemTime = 800;
+		canUseItem = false;
 		TryUseItem(OBJ_TYPE::ITEM_TELEPORT);
 	}
-	if ((isArrowInput ? GetKey(VK_RSHIFT) : GetKey('F'))) {
+	if ((isArrowInput ? GetKey(VK_RSHIFT) : GetKey('F')) && canUseItem) {
+		itemStartTime = clock();
+		itemTime = 800;
+		canUseItem = false;
 		TryUseItem(OBJ_TYPE::ITEM_WALLBREAK);
 	}
 }
@@ -58,6 +67,7 @@ bool Player::GetKey(int input)
 {
 	return GetAsyncKeyState(input) & 0x8000;
 }
+
 
 int Player::GetRenderDistance(int x, int y)
 {
@@ -118,7 +128,6 @@ void Player::EyeUp()
 void Player::TryUseItem(OBJ_TYPE ItemType)
 {
 	if (itemDictionary[ItemType] > 0) {
-		
 		Core::GetInst()->UseItem(ItemType, this);
 		--itemDictionary[ItemType];
 	}

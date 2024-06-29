@@ -13,6 +13,7 @@ public:
 	bool isBlind = false;
 	bool canMove = true;
 	bool isArrowInput = false;
+	bool canUseItem = true;
 	int eyesight = 1;
 
 	Player(bool _isArrowInput);
@@ -35,6 +36,9 @@ private:
 	float stopTime = false;
 	float blindStartTime = false;
 	float blindTime = false;
+
+	float itemStartTime = 0;
+	float itemTime = 0;
 	clock_t lastMoveTime = 0;
 	clock_t moveDelay = 100;
 };

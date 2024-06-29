@@ -23,6 +23,7 @@ generateRandomPos:
 	Vector2 vecArr[10];
 	int vecArrInd = 0;
 
+
 	for (int i = yRandom - 5; i < yRandom + 5; i++) {
 		for (int j = xRandom - 5; j < xRandom + 5; j++) {
 			//map[i][j] = (char)OBJ_TYPE::ITEM_TELEPORT;
