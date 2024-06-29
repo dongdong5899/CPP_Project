@@ -82,7 +82,6 @@ bool Title::Update()
 		case (int)SelectMenu::GameStart:
 			system("cls");
 			Core::GetInst()->Run();
-			Core::DestoryInst();
 			return true;
 		case (int)SelectMenu::GameInfo:
 			UpdateInfo();

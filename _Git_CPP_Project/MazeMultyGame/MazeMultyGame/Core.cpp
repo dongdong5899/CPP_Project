@@ -220,7 +220,6 @@ void Core::Render()
 		cout << endl;
 	}
 
-	char startChar = (char)OBJ_TYPE::ITEM_LIGHT;
 	for (int i = 0; i < 2; i++)
 	{
 		int xPos = (MAP_WIDTH - 8) * i;
@@ -233,7 +232,7 @@ void Core::Render()
 		GotoPos(xPos, yPos + 2);
 		cout << "근처 벽 부수기 : " << p->itemDictionary[OBJ_TYPE::ITEM_WALLBREAK];
 		GotoPos(xPos, yPos + 3);
-		cout << "시아 레벨 : " << p->eyesight;
+		cout << "시야 레벨 : " << p->eyesight;
 		GotoPos(xPos, yPos + 4);
 		cout << (p->isBlind ? "실명" : " ");
 		GotoPos(xPos, yPos + 5);
