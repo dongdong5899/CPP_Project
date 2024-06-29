@@ -5,11 +5,11 @@
 #include <time.h>
 void Item_A_RandomMove::UseItem(Player* player)
 {
-	//random move
-	Vector2 pos = Log::GetPos();
-	GotoPos(pos.x, pos.y);
-	cout << "used_item";
-	cout << "_random_Move";//item name
+	//debug
+	//Vector2 pos = Log::GetPos();
+	//GotoPos(pos.x, pos.y);
+	//cout << "used_item";
+	//cout << "_random_Move";//item name
 	Vector2 randomPos = getRandomPos(player);
 	player->newPos = randomPos;
 }
@@ -22,6 +22,7 @@ generateRandomPos:
 	int yRandom = rand() % 30 + 5;
 	Vector2 vecArr[10];
 	int vecArrInd = 0;
+
 
 	for (int i = yRandom - 5; i < yRandom + 5; i++) {
 		for (int j = xRandom - 5; j < xRandom + 5; j++) {

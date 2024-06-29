@@ -106,9 +106,16 @@ void Title::UpdateInfo()
 	int y = Resolution.Y / 2 - 15;
 	int originy = y;
 	GotoPos(x - 4, y - 4);
-	cout << "게임설명";
+	cout << "-게임설명-";
+
+	//p1 control
 	GotoPos(x - 16, y);
-	cout << "-P1 조작키-";
+	cout << "-P1(도망자)";
+	SetColor((int)COLOR::YELLOW);
+	cout << "●";
+	SetColor((int)COLOR::WHITE);
+	cout << "조작키 - ";
+
 	GotoPos(x - 16, y + 2);
 	cout << "WASD : 이동";
 	GotoPos(x - 16, y + 3);
@@ -116,14 +123,46 @@ void Title::UpdateInfo()
 	GotoPos(x - 16, y + 4);
 	cout << "F : 벽 부수기 사용";
 	
+	//p2 control
 	GotoPos(x + 4, y);
-	cout << "-P2 조작키-";
+	cout << "-P2(술래)";
+	SetColor((int)COLOR::YELLOW);
+	cout << "○";
+	SetColor((int)COLOR::WHITE);
+	cout << " 조작키 - ";
 	GotoPos(x + 4, y+ 2);
 	cout << "↑←↓→ : 이동";
 	GotoPos(x + 4, y + 3);
 	cout << "Enter : 순간이동 사용";
 	GotoPos(x + 4, y + 4);
 	cout << "R-Shift : 벽 부수기 사용";
+
+	int itemX = x - 4;
+	int itemY = y + 10;
+	GotoPos(itemX - 1, itemY);
+	cout << "-아이템 설명-";
+
+	itemY += 2;
+	GotoPos(x - 16, itemY++);
+	cout << "光 : 잠시 맵의 전체를 밝게 해 준다.";
+	GotoPos(x - 16, itemY++);
+	cout << "∮ : 잠시 적의 시아를 제한한다.";
+	GotoPos(x - 16, itemY++);
+	cout << "Θ : 잠시 적의 움직임을 제한한다.";
+	GotoPos(x - 16, itemY++);
+	cout << "™ : 시간이 자신에게 유리하게 작용한다.";
+	GotoPos(x - 16, itemY++);
+	cout << "↑ : 자신의 시아를 증가시킨다.";
+
+
+	GotoPos(x - 16, itemY++);
+	cout << "℡ : 키를 눌러 순간이동 할 수 있게 해 준다.";
+	GotoPos(x - 16, itemY++);
+	cout << "※ : 키를 눌러 벽을 부술 수 있게 해 준다.";
+
+	GotoPos(x - 16, itemY + 5);
+	cout << "space 키를 눌러 설명 나가기";
+
 
 	WaitUntilNotPressingX(VK_SPACE);
 
