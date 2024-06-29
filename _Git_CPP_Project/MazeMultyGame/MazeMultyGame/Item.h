@@ -16,7 +16,7 @@ class Item_A_RandomMove : public Item
 public:
 	virtual void UseItem(Player* player) override;
 private:
-	Vector2 getRandomPos();
+	Vector2 getRandomPos(Player* p);
 
 
 };
