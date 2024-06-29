@@ -28,6 +28,7 @@ public:
 	void UseItem(OBJ_TYPE type, Player* p);
 	void WallBreak(Vector2 pos);
 	void AddTime(int time);
+	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
 private:
 	std::map<OBJ_TYPE, Item*> itemDictionary;
 	void Update();
@@ -35,7 +36,6 @@ private:
 	void PlayerInit();
 	void End();
 	static Core* m_pInst;
-	char arrMap[MAP_HEIGHT][MAP_WIDTH]{};
 	int timer;
 	int time_s;
 	int time_m;

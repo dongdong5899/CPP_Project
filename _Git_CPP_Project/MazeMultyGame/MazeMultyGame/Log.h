@@ -11,6 +11,6 @@ public:
 private:
 	static Vector2 startPos;
 	static int currentSize;
-	static const int maxSize = 15;
+	static const int maxSize = 40;
 };
 
