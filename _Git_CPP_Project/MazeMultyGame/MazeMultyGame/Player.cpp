@@ -2,38 +2,31 @@
 #include <time.h>
 //#include "Player.h"
 
-Player::Player(bool _isArrowInput)
+Player::Player(bool _isArrowInput) : isArrowInput{ _isArrowInput } {}
+
+void Player::Update(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 {
-	isArrowInput = _isArrowInput;
-	
+	ItemCooldTime();
+	Move();
+	CheckItemUse();
 }
 
-void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
+void Player::ItemCooldTime()
 {
-	if (lastMoveTime + moveDelay > clock()) return;
-	lastMoveTime = clock();
 	if (isLight && lightStartTime + lightTime < clock())
-	{
 		isLight = false;
-	}
 	if (isBlind && blindStartTime + blindTime < clock())
-	{
 		isBlind = false;
-	}
-	if (canMove == false)
-	{
-		if (stopStartTime + stopTime < clock())
-		{
-			canMove = true;
-		}
-		else
-		{
-			return;
-		}
-	}
+	if (canMove == false && stopStartTime + stopTime < clock())
+		canMove = true;
 	if (!canUseItem && itemStartTime + itemTime < clock()) {
 		canUseItem = true;
 	}
+}
+void Player::Move()
+{
+	if (lastMoveTime + moveDelay > clock()) return;
+	if (canMove == false) return;
 
 	Vector2 newPos = currentPos;
 
@@ -47,8 +40,10 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 	if (GetAsyncKeyState(isArrowInput ? VK_RIGHT : 0x44) & 0x8000)
 		newPos.x++;
 	this->newPos = newPos;
-
-	//use item
+	lastMoveTime = clock();
+}
+void Player::CheckItemUse()
+{
 	if ((isArrowInput ? GetKey(VK_RETURN) : GetKey('E')) && canUseItem) {
 		itemStartTime = clock();
 		itemTime = 800;
@@ -62,6 +57,7 @@ void Player::Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH])
 		TryUseItem(OBJ_TYPE::ITEM_WALLBREAK);
 	}
 }
+
 
 bool Player::GetKey(int input)
 {

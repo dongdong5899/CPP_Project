@@ -1,6 +1,3 @@
 #include "Item.h"
 
-void Item::UseItem(Player* player)
-{
-	//
-}
+void Item::UseItem(Player* player) {};

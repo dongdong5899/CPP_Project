@@ -3,8 +3,8 @@
 using std::cout;
 using std::wcout;
 using std::endl;
-const int MAP_WIDTH = 41;
-const int MAP_HEIGHT = 40;
+const int MAP_WIDTH = 31;
+const int MAP_HEIGHT = 30;
 #include<Windows.h>
 enum class OBJ_TYPE
 {

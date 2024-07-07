@@ -17,7 +17,11 @@ public:
 	int eyesight = 1;
 
 	Player(bool _isArrowInput);
-	void Move(char _arrMap[MAP_HEIGHT][MAP_WIDTH]);
+	void Update(char _arrMap[MAP_HEIGHT][MAP_WIDTH]);
+	void ItemCooldTime();
+	void Move();
+	void CheckItemUse();
+
 	bool GetKey(int input);
 	int GetRenderDistance(int x, int y);
 	void AddItem(OBJ_TYPE type, int amount = 1);

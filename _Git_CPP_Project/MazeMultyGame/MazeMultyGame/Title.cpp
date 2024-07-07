@@ -21,6 +21,7 @@ void Title::Start()
 
 void Title::Init()
 {
+	system("title CatchMultyMaze | mode con cols=100 lines=50");
 	currnetPlayerSelectMenu = (int)SelectMenu::GameStart;
 	prevPlayerSelectMenu = currnetPlayerSelectMenu;
 
@@ -152,11 +153,11 @@ void Title::UpdateInfo()
 	GotoPos(x - 16, itemY++);
 	cout << "™ : 시간이 자신에게 유리하게 작용한다.";
 	GotoPos(x - 16, itemY++);
-	cout << "↑ : 자신의 시아를 증가시킨다.";
+	cout << "↑ : 자신의 시야를 증가시킨다.";
 
 
 	GotoPos(x - 16, itemY++);
-	cout << "℡ : 키를 눌러 순간이동 할 수 있게 해 준다.";
+	cout << "℡ : 키를 눌러 인근 칸으로 순간이동 할 수 있게 해 준다.";
 	GotoPos(x - 16, itemY++);
 	cout << "※ : 키를 눌러 벽을 부술 수 있게 해 준다.";
 

@@ -1,5 +1,6 @@
-#include <string.h>
+#include <string>
 #include <algorithm>
+#include <iostream>
 #include "Core.h"
 #include "MazeMap.h"
 #include "Console.h"
@@ -13,9 +14,6 @@ Core::Core()
 const char Wall[RenderLevel][4] = { "  ", "¤ý", "£ª", "¤±", "¡à", "¢Ã", "¡á"};
 bool Core::Init()
 {
-	//FullScrean();
-	system("title 22Bombman | mode con cols=100 lines=50");
-
 	CursorVis(false, 1);
 	LockResize();
 	SetFontSize(FW_BOLD, 20, 20);
@@ -44,6 +42,12 @@ bool Core::Init()
 }
 void Core::Run()
 {
+	std::string size = "title CatchMultyMaze | mode con cols=";
+	size.append(std::to_string((MAP_HEIGHT + 2) * 2));
+	size.append(" lines=");
+	size.append(std::to_string(MAP_HEIGHT + 8));
+	system(size.c_str());
+
 	timer = clock();
 	time_s = 0;
 	time_m = 2;
@@ -54,7 +58,6 @@ void Core::Run()
 		if (isEnd) break;
 		Physics();
 		Render();
-		//Sleep(25);
 	}
 	End();
 }
@@ -155,8 +158,8 @@ void Core::AddTime(int time)
 
 void Core::Update()
 {
-	player1->Move(arrMap);
-	player2->Move(arrMap);
+	player1->Update(arrMap);
+	player2->Update(arrMap);
 
 	if (clock() - timer >= 1000)
 	{
@@ -228,7 +231,7 @@ void Core::Render()
 
 	for (int i = 0; i < 2; i++)
 	{
-		int xPos = (MAP_WIDTH - 8) * i;
+		int xPos = (MAP_WIDTH - 10) * i;
 		int yPos = MAP_HEIGHT + 1;
 		GotoPos(xPos, yPos);
 		cout << "Player" << i + 1;
@@ -273,9 +276,9 @@ void Core::PlayerInit()
 void Core::End()
 {
 	system("cls");
-	GotoPos(MAP_WIDTH / 2 + 2, MAP_HEIGHT / 1.5f - 4);
+	GotoPos(MAP_WIDTH / 2 - 2, MAP_HEIGHT / 1.5f - 4);
 	cout << (arrowWin ? "¼ú·¡ ½Â¸®!" : "µµ¸ÁÀÚ ½Â¸®!");
-	GotoPos(MAP_WIDTH / 2 - 1 , MAP_HEIGHT / 1.5f );
+	GotoPos(MAP_WIDTH / 2 - 5 , MAP_HEIGHT / 1.5f );
 	cout << "space Å°¸¦ ´­·¯ Àç½ÃÀÛ";
 	while (true)
 	{

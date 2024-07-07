@@ -7,18 +7,14 @@ class Item abstract
 
 public:
 	virtual void UseItem(Player* player);
-
 };
 
 class Item_A_RandomMove : public Item
 {
-
 public:
 	virtual void UseItem(Player* player) override;
-private:
-	Vector2 getRandomPos(Player* p);
-
-
+//private:
+//	Vector2 GetRandomPos(Player* p);
 };
 
 class Item_A_Light : public Item
